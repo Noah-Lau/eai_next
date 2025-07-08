@@ -1,0 +1,11 @@
+<launch>
+  <arg name="sleep_server" default="true"/>
+
+  <node pkg="eai_bt_controller" exec="eai_bt_controller" output="screen">
+    <param from="$(find-pkg-share eai_bt_controller)/config/eai_bt_controller.yaml"/>
+  </node>
+
+  <group if="$(var sleep_server)">
+    <node pkg="eai_bt_controller" exec="sleep_server" output="screen"/>
+  </group>
+</launch>
