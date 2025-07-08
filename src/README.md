@@ -12,11 +12,11 @@ Clone the repository using the following command:
 ```bash
 git clone --recurse-submodules https://github.com/Noah-Lau/eai_next.git 
 
-cd ~/eai_next/src
-bash install_dependencies.sh
-
 sudo apt remove ros-humble-navigation2 ros-humble-nav2-*
 sudo apt remove ros-humble-slam-toolbox
+
+cd ~/eai_next/src
+bash install_dependencies.sh
 
 ```
 

@@ -46,10 +46,10 @@ echo -e "${GREEN}拉取 underlay.repos 中的依赖项到 ${WS_PATH}/src/...${NC
 vcs import src < src/underlay.repos
 
 # 克隆 navigation2
-echo -e "${GREEN}克隆 navigation2 (Humble 分支)...${NC}"
+echo -e "${GREEN}克隆 navigation2 (Humble Main 分支)...${NC}"
 cd ${WS_PATH}/src
 if [ ! -d "navigation2" ]; then
-  git clone https://github.com/ros-planning/navigation2.git -b humble
+  git clone https://github.com/ros-planning/navigation2.git -b humble_main
 else
   echo "navigation2 已存在，跳过克隆。"
   cd navigation2
@@ -60,14 +60,3 @@ fi
 # 安装系统依赖
 echo -e "${GREEN}安装系统依赖...${NC}"
 rosdep install --from-paths src --ignore-src -r -y
-
-# 构建工作空间
-echo -e "${GREEN}构建工作空间...${NC}"
-colcon build --symlink-install --parallel-workers 2
-
-# 源化环境
-echo -e "${GREEN}源化工作空间...${NC}"
-echo "source ${WS_PATH}/install/setup.bash" >> ~/.bashrc
-source ${WS_PATH}/install/setup.bash
-
-echo -e "${GREEN}安装完成！请运行 'ros2 pkg list' 验证安装。${NC}"
