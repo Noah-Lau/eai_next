@@ -1,17 +1,28 @@
-# eai_next Workspace
+# EAI-NexT Workspace
 
-This is a ROS 2 workspace for the eai_next project, containing custom packages and dependencies managed via Git submodules and install_dependencies.sh.
+## Description
+EAI-NexT: Embodied AI Laboratory’s Humanoid Robot Navigation, Execution, and Tools. This workspace is designed to support the development and testing of humanoid robot navigation, execution, and related tools, featuring custom packages and managed dependencies.
 
-## Custom Packages
-- `eai_bt_controller`: Custom behavior tree controller.
-- `underlay.repos`: Dependency configuration file.
-- `install_dependencies.sh`: Script to install additional dependencies.
+## First-Time Usage
 
-## Dependencies
-- Other packages (e.g., BehaviorTree, BehaviorTree.ROS2, navigation2) are managed as Git submodules or installed via install_dependencies.sh.
+To set up the EAI-NexT workspace for the first time, follow these steps:
 
-## Usage
-1. Clone the repository: `git clone --recurse-submodules https://github.com/<your_username>/eai_next.git`
-2. Run `install_dependencies.sh` to set up dependencies.
-3. Build the workspace: `colcon build`
-4. Source the environment: `source install/setup.bash`
+### Step 1: Clone the Repository
+Clone the repository using the following command:
+```bash
+git clone --recurse-submodules https://github.com/Noah-Lau/eai_next.git ~/
+
+cd ~/eai_next/src
+bash install_dependencies.sh
+
+sudo apt remove ros-humble-navigation2 ros-humble-nav2-*
+sudo apt remove ros-humble-slam-toolbox
+
+```
+
+### Step 2: Build the Workspace
+Return to the workspace root and build with specific packages:
+```bash
+cd ..
+colcon build --parallel-workers 2 --allow-overriding common_interfaces diagnostic_msgs geometry_msgs launch launch_testing launch_testing_ament_cmake launch_xml launch_yaml nav2_map_server nav_msgs sensor_msgs sensor_msgs_py shape_msgs std_msgs std_srvs trajectory_msgs visualization_msgs
+```
