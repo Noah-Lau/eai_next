@@ -4,3 +4,11 @@ log/
 *.pyc
 __pycache__
 *.swp
+src/BehaviorTree/
+src/navigation2/
+src/ros-navigation/
+src/ros/
+src/ros2/
+src/BehaviorTree.ROS2/
+src/.vscode/
+
