@@ -10,7 +10,7 @@ To set up the EAI-NexT workspace for the first time, follow these steps:
 ### Step 1: Clone the Repository
 Clone the repository using the following command:
 ```bash
-git clone --recurse-submodules https://github.com/Noah-Lau/eai_next.git ~/
+git clone --recurse-submodules https://github.com/Noah-Lau/eai_next.git 
 
 cd ~/eai_next/src
 bash install_dependencies.sh
