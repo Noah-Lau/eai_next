@@ -12,7 +12,7 @@ if [ "$EUID" -eq 0 ]; then
 fi
 
 # 工作空间路径
-WS_PATH=~/ros2_ws
+WS_PATH=~/eai_next
 
 # 确保 ROS 2 Humble 已安装并源化
 if ! command -v ros2 &> /dev/null; then
@@ -56,7 +56,3 @@ else
   git checkout humble
   git pull
 fi
-
-# 安装系统依赖
-echo -e "${GREEN}安装系统依赖...${NC}"
-rosdep install --from-paths src --ignore-src -r -y
