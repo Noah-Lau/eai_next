@@ -11,12 +11,26 @@ find_package(btcpp_ros2_interfaces REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(nav2_behavior_tree REQUIRED)
+find_package(nav2_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+
 
 set(THIS_PACKAGE_DEPS
     behaviortree_ros2
     std_msgs
     std_srvs
-    btcpp_ros2_interfaces)
+    btcpp_ros2_interfaces
+    nav2_msgs
+    tf2)
+
+message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+    # 添加 include 目录
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/plugins/action
+)
+
 
 ######################################################
 # Simple example showing how to use and customize the BtExecutionServer
@@ -37,6 +51,10 @@ ament_target_dependencies(sleep_client ${THIS_PACKAGE_DEPS})
 add_library(sleep_plugin SHARED src/sleep_action.cpp)
 target_compile_definitions(sleep_plugin PRIVATE  BT_PLUGIN_EXPORT )
 ament_target_dependencies(sleep_plugin ${THIS_PACKAGE_DEPS})
+
+add_library(nav_to_pose_trigger_action_plugin SHARED plugins/action/nav_to_pose_trigger_action.cpp)
+target_compile_definitions(nav_to_pose_trigger_action_plugin PRIVATE  BT_PLUGIN_EXPORT )
+ament_target_dependencies(nav_to_pose_trigger_action_plugin ${THIS_PACKAGE_DEPS})
 
 add_executable(sleep_client_dyn src/sleep_client.cpp)
 target_compile_definitions(sleep_client_dyn PRIVATE USE_SLEEP_PLUGIN )
@@ -69,6 +87,7 @@ install(TARGETS
   sleep_client_dyn
   sleep_server
   sleep_plugin
+  nav_to_pose_trigger_action_plugin
   subscriber_test
   eai_bt_controller
   bool_client
@@ -81,6 +100,7 @@ install(TARGETS
 
 install(TARGETS
   sleep_plugin
+  nav_to_pose_trigger_action_plugin
   LIBRARY DESTINATION share/${PROJECT_NAME}/bt_plugins
   ARCHIVE DESTINATION share/${PROJECT_NAME}/bt_plugins
   RUNTIME DESTINATION share/${PROJECT_NAME}/bt_plugins

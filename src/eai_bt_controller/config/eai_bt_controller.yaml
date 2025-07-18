@@ -10,6 +10,7 @@ bt_action_server:
       - behaviortree_cpp/bt_plugins
       - btcpp_ros2_samples/bt_plugins
       - nav2_behavior_tree/lib
+      - eai_bt_controller/bt_plugins
 
     behavior_trees:
       - eai_bt_controller/behavior_trees
