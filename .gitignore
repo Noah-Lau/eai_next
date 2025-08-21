@@ -9,6 +9,8 @@ src/navigation2/
 src/ros-navigation/
 src/ros/
 src/ros2/
-src/BehaviorTree.ROS2/
 src/.vscode/
+src/BehaviorTree.ROS2/.vscode
+src/BehaviorTree.ROS2/behaviortree_ros2/.vscode
+src/eai_bt_controller/.vscode
 
