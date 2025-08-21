@@ -18,7 +18,8 @@ public:
   {
     return providedBasicPorts(
       {
-        // InputPort<geometry_msgs::msg::Pose2D>("nav_goal")
+        InputPort<geometry_msgs::msg::PoseStamped>("nav_goal", "Navigation goal pose"),
+        InputPort<std::string>("nav_tree", "Name of the behavior tree to execute")
       });
   }
 

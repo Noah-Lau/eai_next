@@ -3,31 +3,11 @@
 
 bool NavigationTriggerAction::setGoal(RosActionNode::Goal& goal)
 {
-  // auto nav_goal_2d = getInput<geometry_msgs::msg::Pose2D>("nav_goal");
-  // if (!nav_goal_2d.has_value()) {
-  //   RCLCPP_ERROR(rclcpp::get_logger("your_node_name"), "Error: %s", nav_goal_2d.error().c_str());
-  //   }
-  geometry_msgs::msg::Pose2D nav_goal_2d;
-  nav_goal_2d.x = 1.0;
-  nav_goal_2d.y = 1.0;
-  nav_goal_2d.theta = 0.0;
-  auto nav_goal_3d = pose2DToPoseStamped(nav_goal_2d, "map");
-
-      // 提取 PoseStamped 对象
-      std::cout << "Goal Pose:" << std::endl
-                << "  Header:" << std::endl
-                << "    Timestamp: " << nav_goal_3d.header.stamp.sec << "." << nav_goal_3d.header.stamp.nanosec << std::endl
-                << "    Frame ID: " << nav_goal_3d.header.frame_id << std::endl
-                << "  Pose:" << std::endl
-                << "    Position: (x: " << nav_goal_3d.pose.position.x 
-                << ", y: " << nav_goal_3d.pose.position.y 
-                << ", z: " << nav_goal_3d.pose.position.z << ")" << std::endl
-                << "    Orientation: (x: " << nav_goal_3d.pose.orientation.x 
-                << ", y: " << nav_goal_3d.pose.orientation.y 
-                << ", z: " << nav_goal_3d.pose.orientation.z 
-                << ", w: " << nav_goal_3d.pose.orientation.w << ")" << std::endl;
-  goal.pose = nav_goal_3d;
-  goal.behavior_tree = "/home/noah/eai_next/src/eai_bt_controller/behavior_trees/navigate_through_poses_w_replanning_and_recovery.xml";
+  // geometry_msgs::msg::PoseStamped nav_goal;
+    Expected<geometry_msgs::msg::PoseStamped> nav_goal = getInput<geometry_msgs::msg::PoseStamped>("nav_goal");
+    Expected<std::string> nav_tree = getInput<std::string>("nav_tree");
+  goal.pose = nav_goal.value();
+  goal.behavior_tree = nav_tree.value();
 
   return true;
 }

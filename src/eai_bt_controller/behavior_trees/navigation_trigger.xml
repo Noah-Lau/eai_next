@@ -1,7 +1,7 @@
 <root main_tree_to_execute="NavigationTrigger" BTCPP_format="4">
   <BehaviorTree ID="NavigationTrigger">
     <Sequence name="nav2_trigger">
-      <NavigationTriggerAction name="nav2_trigger" action_name="navigate_to_pose"/>
+      <NavigationTriggerAction name="nav2_trigger" action_name="navigate_to_pose" nav_goal="{@nav_goal}" nav_tree="{@nav_tree}"/>
     </Sequence>
   </BehaviorTree>
 </root>

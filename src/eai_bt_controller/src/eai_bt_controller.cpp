@@ -39,6 +39,24 @@ public:
     // by TreeExecutionServer. But this is OK because the blackboard is thread-safe.
   }
 
+  bool onGoalReceived(std::shared_ptr<const ExecuteTree::Goal> goal) override
+{
+  RCLCPP_INFO(node()->get_logger(), "Processing goal with mission_type: %s, target_tree: %s",
+              goal->mission_type.c_str(), goal->target_tree.c_str());
+
+  // 验证 mission_type
+  if (goal->mission_type.empty()) {
+    RCLCPP_ERROR(node()->get_logger(), "Invalid goal: mission_type is empty");
+    return false;
+  }
+  // 存储到全局黑板
+  globalBlackboard()->set("mission_type", goal->mission_type);
+  globalBlackboard()->set("nav_goal", goal->nav_goal);
+  globalBlackboard()->set("payload", goal->payload);
+  globalBlackboard()->set("nav_tree", goal->nav_tree);
+  return true;
+}
+
   void onTreeCreated(BT::Tree& tree) override
   {
     logger_cout_ = std::make_shared<BT::StdCoutLogger>(tree);
